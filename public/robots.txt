@@ -1,0 +1,7 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# If you set SITE_URL, sitemap.xml will be generated at build time.
+# Uncomment the next line and replace with your domain if serving a custom robots file.
+# Sitemap: https://your-domain.com/sitemap.xml

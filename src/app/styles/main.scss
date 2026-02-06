@@ -1,0 +1,365 @@
+@import 'normalize.css';
+@import 'react-toastify/dist/ReactToastify.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Unbounded:wght@200..900&display=swap');
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import 'tailwind-extensions';
+
+:root {
+  --yellow: #ffb443;
+  --white: #fff;
+  --purpule: #876aff;
+  --violet-60: #9159e0;
+  --violet-50: #a565ff;
+  --violet-20: #e9e0ff;
+  --violet-10: #f3f1ff;
+  --green-50: #5bb678;
+  --green-40: #51d079;
+  --green-10: #dffde9;
+  --red-50: #ff495f;
+  --red-10: #ffe9eb;
+  --gray-95: #232325;
+  --gray-80: #323036;
+  --gray-70: #4d4d52;
+  --gray-50: #929399;
+  --gray-40: #afb1b8;
+  --gray-20: #e6e8ed;
+  --gray-15: #eef0f5;
+  --gray-10: #f5f7fc;
+
+  --font-family: "Inter", sans-serif;
+
+  --spacing-5: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  outline: none !important;
+  color: rgba(21, 21, 25, 1);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+
+  user-select: none;
+
+  margin: 0;
+
+  font-family: var(--font-family), 'sans-serif';
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Unbounded", sans-serif;
+}
+
+.container {
+  max-width: 1296px;
+  padding: 0 24px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: 1024px) {
+    padding: 0 16px;
+  }
+}
+
+.header__link {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #212333;
+  padding: 20px 0;
+  position: relative;
+
+  @media (max-width: 1024px) {
+    font-size: 20px;
+    line-height: 28px;
+    padding: 16px 24px;
+  }
+
+  &:hover {
+    color: #26B862;
+  }
+
+  &--active {
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      border-radius: 2px 2px 0 0;
+      background: #212333;
+
+      @media (max-width: 1024px) {
+        width: 2px;
+        height: auto;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        right: auto;
+        border-radius: 0 2px 2px 0;
+      }
+    }
+  }
+}
+
+.gradient-border {
+  border: 1px solid;
+  border-image-source: linear-gradient(179.79deg, rgba(255, 255, 255, 0.32) -158.77%, rgba(255, 255, 255, 0) 116.96%);
+  border-image-slice: 1;
+  backdrop-filter: blur(8px);
+  background: rgba(#fff, 0.3);
+}
+
+.button-footer,
+.button-small,
+.button {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 40px;
+  letter-spacing: 0%;
+  padding: 16px 32px;
+  background: #26B862;
+  border-radius: 100px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: 0.3s all ease;
+
+  @media (max-width: 1024px) {
+    font-size: 20px;
+    line-height: 32px;
+  }
+
+  &:hover {
+    background-color: rgba(#26B862, 0.8);
+  }
+}
+
+.button-small {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.button-footer {
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px;
+  border-radius: 12px;
+}
+
+.header__button {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  padding: 8px 16px;
+  background: #212333;
+  border-radius: 100px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: 0.3s all ease;
+
+  &:hover {
+    background-color: rgba(#212333, 0.8);
+  }
+}
+
+.button-primary {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: 0%;
+  padding: 16px 32px;
+  background: rgba(7, 136, 241, 1);
+  border-radius: 100px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: 0.3s all ease;
+
+  &:hover {
+    background-color: rgba(7, 136, 241, 0.8);
+  }
+}
+
+.section {
+  padding: 96px 0;
+
+  @media (max-width: 1024px) {
+    padding: 48px 0;
+  }
+}
+
+body {
+  background: #F5F7FC;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 60px;
+  line-height: 72px;
+  color: #FFFFFF;
+  font-family: 'Unbounded', sans-serif;
+
+  @media (max-width: 1024px) {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+h2 {
+  color: rgba(105, 103, 119, 1);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 32px;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+    line-height: 28px;
+
+    br {
+      display: none;
+    }
+  }
+}
+
+.subtitle {
+  margin-top: -56px;
+  margin-bottom: 72px;
+  color: #717386;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+
+  @media (max-width: 1024px) {
+    font-size: 20px;
+    line-height: 32px;
+    margin-top: -32px;
+    margin-bottom: 40px;
+  }
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 56px;
+  text-align: center;
+  margin-bottom: 72px;
+
+  @media (max-width: 1024px) {
+    font-size: 32px;
+    line-height: 40px;
+    margin-bottom: 40px;
+  }
+}
+
+h4 {
+  margin-top: 4px;
+  color: rgba(105, 103, 119, 1);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 40px;
+  text-align: center;
+
+
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+}
+
+.swiper-pagination {
+  position: relative !important;
+  margin-top: 30px;
+}
+
+.swiper:not(.overflow-hidden) {
+  overflow: visible !important;
+}
+
+.pagination {
+  display: flex;
+  gap: 12px;
+
+  a {
+    width: 48px;
+    height: 48px;
+    background-color: transparent;
+    color: #717386;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background: #FFFFFF;
+
+    @media (max-width: 370px) {
+      font-size: 14px;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+    }
+
+    &:hover {
+      background-color: #F3F8FD;
+    }
+  }
+
+  .selected a {
+    background-color: #212333;
+    color: #fff;
+    pointer-events: none;
+  }
+
+  .disabled a {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.swiper-slide.h-full {
+  height: auto !important;
+  display: flex !important;
+
+  >* {
+    width: 100%;
+  }
+}
+
+.swiper-slide.swiper-slide-active .works-item {
+  border-color: #3C7BF01A;
+}
+
+.equip-item {
+  transition: 0.3s all ease;
+}
+
+.swiper-slide.swiper-slide-active .equip-item {
+  border-color: #3C7BF01A;
+  transform: translateY(-48px);
+}
+
+.os-scrollbar-handle {
+  background-color: #E4EAFA!important;
+}
