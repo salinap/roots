@@ -5,7 +5,15 @@ import { NavLink } from 'react-router-dom';
 
 import BannerBg from '../../assets/images/banner-bg.png';
 
-const Banner = ({ dark, title, descl, btnText, btnLink, img }) => {
+const Banner = ({
+  dark,
+  title,
+  descl,
+  btnText,
+  btnLink,
+  img,
+  btnClick = false,
+}) => {
   return (
     <div className="py-[48px] lg:py-[96px]">
       <div className="container">
@@ -46,12 +54,21 @@ const Banner = ({ dark, title, descl, btnText, btnLink, img }) => {
             >
               {descl}
             </div>
-            <NavLink
-              to={btnLink}
-              className="button-small flex w-full justify-center lg:inline-flex lg:w-auto"
-            >
-              {btnText}
-            </NavLink>
+            {btnClick ? (
+              <button
+                onClick={btnClick}
+                className="button-small flex w-full justify-center lg:inline-flex lg:w-auto"
+              >
+                {btnText}
+              </button>
+            ) : (
+              <NavLink
+                to={btnLink}
+                className="button-small flex w-full justify-center lg:inline-flex lg:w-auto"
+              >
+                {btnText}
+              </NavLink>
+            )}
           </div>
           <div className="order-1 flex min-h-[276px] w-full p-[8px] lg:order-2 lg:max-w-[467px] lg:p-[16px]">
             <div

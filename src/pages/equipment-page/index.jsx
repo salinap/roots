@@ -2,6 +2,8 @@ import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { NavLink } from 'react-router-dom';
 
+import { useModalStore } from 'shared/store';
+
 import EmptyImgIcon from '../../assets/icons/empty-image-icon.svg';
 import SearchIcon from '../../assets/icons/search.svg';
 import BannerImg from '../../assets/images/banner-img-1.png';
@@ -12,6 +14,7 @@ import EquipImg4 from '../../assets/images/equip4.png';
 import EquipImg5 from '../../assets/images/equip5.png';
 import EquipMainImg from '../../assets/images/equipment-main.jpg';
 import Banner from '../../components/banner';
+import ContactUsModal from '../../components/modals/contact-us';
 import { useIsDesktop } from '../../hooks';
 
 const FILTER = [
@@ -86,6 +89,12 @@ export const EquipmentPage = () => {
   const [type, setType] = useState(1);
   const isDesktop = useIsDesktop();
   const [value, setValue] = useState('');
+
+  const { openModal } = useModalStore();
+  const handleFeedbackClick = () => {
+    openModal(<ContactUsModal />);
+  };
+
   return (
     <>
       <div className="mx-auto max-w-[1440px] lg:p-[16px]">
@@ -201,7 +210,7 @@ export const EquipmentPage = () => {
         title="Цифровой инструмент для роста"
         descl="Помогает управлять хозяйством, экономить ресурсы, налаживать процессы, ускоряет развитие и контролировать урожай без лишних усилий"
         btnText="Открыть демо"
-        btnLink="/"
+        btnClick={handleFeedbackClick}
         img={BannerImg}
       />
     </>

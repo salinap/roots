@@ -7,6 +7,8 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import React, { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useModalStore } from 'shared/store';
+
 import HowImg1 from '../../assets/icons/how1.svg';
 import HowImg2 from '../../assets/icons/how2.svg';
 import HowImg3 from '../../assets/icons/how3.svg';
@@ -36,6 +38,7 @@ import MainImg from '../../assets/images/main.jpg';
 import StartBg from '../../assets/images/start.jpg';
 import TomatosImg from '../../assets/images/tomatos.jpg';
 import VideoPreview from '../../assets/images/video-preview1.jpg';
+import ContactUsModal from '../../components/modals/contact-us';
 import VideoCard from '../../components/video-card';
 
 const WORK_LIST = [
@@ -114,6 +117,11 @@ export const MainPage = () => {
   const [funcTotalSlides, setFuncTotalSlides] = useState(0);
   const [type, setType] = useState(1);
 
+  const { openModal } = useModalStore();
+  const handleFeedbackClick = () => {
+    openModal(<ContactUsModal />);
+  };
+
   const handleFuncSwiperSlideChange = () => {
     if (funcSwiperRef.current) {
       setFuncSlideIndex(funcSwiperRef.current.activeIndex + 1);
@@ -138,7 +146,14 @@ export const MainPage = () => {
                 <span className="font-semibold text-white">тратить меньше</span>
               </h1>
             </div>
-            <button className="button w-full lg:w-auto">Начать работать</button>
+            <a
+              href="http://83.147.246.15:5173/"
+              className="button w-full lg:w-auto"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Начать работать
+            </a>
             <div className="mt-[40px] flex items-center justify-center pb-[48px] lg:mt-[148px] lg:justify-between">
               <img src={Mouse} alt="" className="hidden lg:block" />
               <a
@@ -314,7 +329,10 @@ export const MainPage = () => {
                 процессы, ускоряет развитие и контролировать урожай без лишних
                 усилий
               </div>
-              <button className="button-small w-full lg:w-auto">
+              <button
+                onClick={handleFeedbackClick}
+                className="button-small w-full lg:w-auto"
+              >
                 Открыть демо
               </button>
             </div>
@@ -549,9 +567,14 @@ export const MainPage = () => {
                 <div className="mb-[8px] text-[28px] font-medium leading-[38px] text-white lg:mb-[12px]">
                   Начинаете работу
                 </div>
-                <button className="button-small mt-[8px] !rounded-brand-100 !bg-white !text-[#212333] hover:!bg-white/90 lg:mt-[24px]">
+                <a
+                  href="http://83.147.246.15:5173/"
+                  target="_blank"
+                  className="button-small mt-[8px] text-center !rounded-brand-100 !bg-white !text-[#212333] hover:!bg-white/90 lg:mt-[24px]"
+                  rel="noreferrer"
+                >
                   Начать работу
-                </button>
+                </a>
               </div>
             </div>
           </div>

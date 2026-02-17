@@ -1,11 +1,19 @@
 /* eslint-disable prettier/prettier */
 
 import { NavLink } from 'react-router-dom';
+import { useModalStore } from 'shared/store';
 import FooterBg from '../../assets/images/footer-bg.jpg';
 import FooterLogo from '../../assets/images/white-logo.svg';
 import { RoutesPath } from 'shared/routes-path';
+import ContactUsModal from '../../components/modals/contact-us';
 
 export default function Footer() {
+  const { openModal } = useModalStore();
+  const handleFeedbackClick = () => {
+    openModal(
+      <ContactUsModal />
+    );
+  };
   return (
     <div className='mx-auto max-w-[1440px] lg:p-[16px]'>
       <footer
@@ -61,7 +69,7 @@ export default function Footer() {
           <div className="mb-[20px]">
             <a href="mailto:info@roots.ru" className="text-[24px] font-bold leading-[32px] text-white opacity-100 hover:opacity-[0.64]">info@roots.ru</a>
           </div>
-          <button className="button-footer">Написать нам</button>
+          <button className="button-footer" onClick={handleFeedbackClick}>Написать нам</button>
         </div>
       </footer>
     </div>

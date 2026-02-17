@@ -8,6 +8,8 @@ import React, { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useModalStore } from 'shared/store';
+
 import Icon1 from '../../assets/icons/about-icon1.svg';
 import Icon2 from '../../assets/icons/about-icon2.svg';
 import Icon3 from '../../assets/icons/about-icon3.svg';
@@ -20,6 +22,7 @@ import AboutMainIcon3 from '../../assets/icons/about-main-3.svg';
 import NextIcon from '../../assets/icons/next-icon.svg';
 import AboutMainImg from '../../assets/images/about-main.jpg';
 import AboutTechImg from '../../assets/images/about-tech-img.jpg';
+import ContactUsModal from '../../components/modals/contact-us';
 
 const LIST = [
   {
@@ -65,6 +68,10 @@ const LIST = [
 
 export const AboutPage = () => {
   const workSwiperRef = useRef(null);
+  const { openModal } = useModalStore();
+  const handleFeedbackClick = () => {
+    openModal(<ContactUsModal />);
+  };
   return (
     <>
       <div className="mx-auto max-w-[1440px] lg:p-[16px]">
@@ -234,9 +241,9 @@ export const AboutPage = () => {
           <div className="container">
             <h3>Готовы к сотрудничеству</h3>
             <div className="flex flex-col gap-[16px] lg:flex-row">
-              <NavLink
-                to="/"
-                className="flex-1 rounded-[24px] bg-[#27BD6514] p-[20px] lg:rounded-brand-32 lg:p-[40px]"
+              <button
+                onClick={handleFeedbackClick}
+                className="flex-1 cursor-pointer rounded-[24px] bg-[#27BD6514] p-[20px] text-start lg:rounded-brand-32 lg:p-[40px]"
               >
                 <div className="mb-[20px] inline-flex rounded-brand-100 bg-[#26B862] px-[16px] py-[6px] text-[16px] leading-[24px] text-white lg:mb-[24px]">
                   Контакты
@@ -246,7 +253,7 @@ export const AboutPage = () => {
                   интересующие вас вопросы
                 </div>
                 <img src={NextIcon} alt="" />
-              </NavLink>
+              </button>
               <NavLink
                 to="/"
                 className="flex-1 rounded-[24px] bg-[#3C7BF01A] p-[20px] lg:rounded-brand-32 lg:p-[40px]"

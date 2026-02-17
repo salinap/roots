@@ -80,9 +80,14 @@ const Header = () => {
                 ))}
               </nav>
               <div className="container">
-                <button className="header__button mb-[24px] mt-[46px] w-full">
+                <a
+                  href="http://83.147.246.15:5173/"
+                  target="_blank"
+                  className="header__button mb-[24px] mt-[46px] w-full"
+                  rel="noreferrer"
+                >
                   Войти
-                </button>
+                </a>
               </div>
             </div>
           </motion.div>
@@ -109,7 +114,14 @@ const Header = () => {
                 </NavLink>
               ))}
             </nav>
-            <button className="header__button hidden lg:block">Войти</button>
+            <a
+              href="http://83.147.246.15:5173/"
+              target="_blank"
+              className="header__button hidden lg:block"
+              rel="noreferrer"
+            >
+              Войти
+            </a>
             <div
               className="relative ml-auto flex size-[40px] cursor-pointer items-center justify-center lg:hidden"
               onClick={() => setOpen(!open)}

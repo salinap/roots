@@ -13,6 +13,7 @@ import { ReviewsPage } from 'pages/reviews-page';
 import { TariffsPage } from 'pages/tariffs-page';
 
 import { RoutesPath } from 'shared/routes-path';
+import { GlobalModal } from 'shared/ui';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +31,7 @@ export const App = () => {
         <Pages />
       </BrowserRouter>
       <ToastContainer closeOnClick theme="colored" />
+      <GlobalModal />
     </QueryClientProvider>
   );
 };

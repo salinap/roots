@@ -123,6 +123,12 @@ h4 {
   border-image-slice: 1;
   backdrop-filter: blur(8px);
   background: rgba(#fff, 0.3);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(#fff, 0.4);
+    backdrop-filter: blur(10px);
+  }
 }
 
 .button-footer,
