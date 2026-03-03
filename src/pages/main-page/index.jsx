@@ -1,10 +1,11 @@
 import 'swiper/css';
 
+import { AnimatePresence, motion } from 'framer-motion';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useModalStore } from 'shared/store';
@@ -20,10 +21,10 @@ import WhyImg1 from '../../assets/icons/why1.svg';
 import WhyImg2 from '../../assets/icons/why2.svg';
 import WhyImg3 from '../../assets/icons/why3.svg';
 import WhyImg4 from '../../assets/icons/why4.svg';
-import WorkImg1 from '../../assets/icons/work1.svg';
-import WorkImg2 from '../../assets/icons/work2.svg';
-import WorkImg3 from '../../assets/icons/work3.svg';
-import WorkImg4 from '../../assets/icons/work4.svg';
+import WorkIcon1 from '../../assets/icons/work1.svg';
+import WorkIcon2 from '../../assets/icons/work2.svg';
+import WorkIcon3 from '../../assets/icons/work3.svg';
+import WorkIcon4 from '../../assets/icons/work4.svg';
 import BannerBg from '../../assets/images/banner-bg.png';
 import BannerImg1 from '../../assets/images/banner-img1.svg';
 import EquipImg1 from '../../assets/images/equip1.png';
@@ -32,18 +33,23 @@ import EquipImg3 from '../../assets/images/equip3.png';
 import EquipImg4 from '../../assets/images/equip4.png';
 import EquipImg5 from '../../assets/images/equip5.png';
 import FuncBg from '../../assets/images/func-bg.png';
+import FuncImg2 from '../../assets/images/func-img-2.png';
 import FuncImgMobile from '../../assets/images/func-img-mobile.png';
 import FuncImg from '../../assets/images/func-img.png';
 import MainImg from '../../assets/images/main.jpg';
 import StartBg from '../../assets/images/start.jpg';
-import TomatosImg from '../../assets/images/tomatos.jpg';
 import VideoPreview from '../../assets/images/video-preview1.jpg';
+import WorkImg1 from '../../assets/images/work-img-1.jpg';
+import WorkImg2 from '../../assets/images/work-img-2.jpg';
+import WorkImg3 from '../../assets/images/work-img-3.jpg';
+import WorkImg4 from '../../assets/images/work-img-4.jpg';
 import ContactUsModal from '../../components/modals/contact-us';
 import VideoCard from '../../components/video-card';
 
 const WORK_LIST = [
   {
-    icon: WorkImg1,
+    icon: WorkIcon1,
+    img: WorkImg1,
     title: <>Тепличные культуры</>,
     list: [
       'Помидоры',
@@ -54,17 +60,20 @@ const WORK_LIST = [
     ],
   },
   {
-    icon: WorkImg2,
+    icon: WorkIcon2,
+    img: WorkImg2,
     title: <>Цветочные культуры</>,
     list: ['Розы', 'Тюльпаны', 'Хризантемы', 'Сезонные декоративные растения'],
   },
   {
-    icon: WorkImg3,
+    icon: WorkIcon3,
+    img: WorkImg3,
     title: <>Открытый грунт</>,
     list: ['Картофель', 'Кукуруза', 'Подсолнечник', 'Пшеница', 'Ячмень'],
   },
   {
-    icon: WorkImg4,
+    icon: WorkIcon4,
+    img: WorkImg4,
     title: <>Ягодные&nbsp;и плодовые</>,
     list: ['Клубника', 'Малина', 'Виноград'],
   },
@@ -109,15 +118,34 @@ const EQUIP_LIST = [
   },
 ];
 
+const FUNC_IMAGES = [FuncImg, FuncImg2];
+
 export const MainPage = () => {
   const workSwiperRef = useRef(null);
   const funcSwiperRef = useRef(null);
   const equipSwiperRef = useRef(null);
   const [funcSlideIndex, setFuncSlideIndex] = useState(0);
   const [funcTotalSlides, setFuncTotalSlides] = useState(0);
+  const [worksIndex, setWorksIndex] = useState(0);
+  const [worksAutoplayResetKey, setWorksAutoplayResetKey] = useState(0);
   const [type, setType] = useState(1);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setWorksIndex((prev) => (prev + 1) % WORK_LIST.length);
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [worksIndex, worksAutoplayResetKey]);
+
+  const handleWorkItemClick = (index) => {
+    setWorksIndex(index);
+    setWorksAutoplayResetKey((prev) => prev + 1);
+  };
+
   const { openModal } = useModalStore();
+  const currentFuncImage = FUNC_IMAGES[funcSlideIndex - 1] || FuncImg;
+
   const handleFeedbackClick = () => {
     openModal(<ContactUsModal />);
   };
@@ -300,15 +328,35 @@ export const MainPage = () => {
           </div>
           <div className="hidden flex-col lg:flex lg:flex-row">
             <div className="flex w-full flex-wrap gap-[8px] lg:max-w-[50%]">
-              {WORK_LIST.map(({ icon, title, list }) => (
-                <WorksItem key={title} icon={icon} title={title} list={list} />
+              {WORK_LIST.map(({ icon, title, list }, index) => (
+                <WorksItem
+                  key={title}
+                  icon={icon}
+                  title={title}
+                  list={list}
+                  isActive={worksIndex === index}
+                  handleClick={() => handleWorkItemClick(index)}
+                />
               ))}
             </div>
             <div className="hidden w-full pl-[16px] lg:flex lg:max-w-[50%]">
-              <div
-                className="size-full rounded-brand-32 bg-cover bg-center"
-                style={{ backgroundImage: `url(${TomatosImg})` }}
-              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.45, ease: 'easeInOut' }}
+                  key={worksIndex}
+                  className="size-full"
+                >
+                  <div
+                    className="size-full rounded-brand-32 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url(${WORK_LIST[worksIndex].img})`,
+                    }}
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </div>
@@ -445,27 +493,28 @@ export const MainPage = () => {
                   <SwiperSlide className="h-full">
                     <div className="!w-auto lg:pr-[12px]">
                       <div className="mb-[8px] text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[12px] lg:text-[28px] lg:leading-[36px]">
-                        Мониторинг состояния растений
+                        AI-рекомендации по уходу
                       </div>
                       <div className="mb-[24px] text-[16px] leading-[24px] text-[#717386] lg:mb-[32px]">
-                        Получайте данные о влажности, температуре, освещённости
-                        и других параметрах с датчиков в режиме реального
-                        времени.
+                        Автоматизированные рекомендации по поливу, обработкам и
+                        агрооперациям на основе данных сенсоров, истории участка
+                        и текущих условий.
                       </div>
                       <div className="mb-[8px] text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[12px] lg:text-[28px] lg:leading-[36px]">
-                        Управление задачами и&nbsp;технологическими картами
+                        Удалённая работа агрономов и экспертов
                       </div>
                       <div className="mb-[24px] text-[16px] leading-[24px] text-[#717386] lg:mb-[32px]">
-                        Создаёте планы-техкарты по выращиванию культур,
-                        назначаете сотрудников, отслеживаете выполнение.
+                        Подключайте консультантов к системе для анализа данных,
+                        корректировки технологических карт и принятия решений на
+                        основе реальной ситуации в поле.
                       </div>
                       <div className="mb-[8px] text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[12px] lg:text-[28px] lg:leading-[36px]">
-                        Подключение агрономов и&nbsp;экспертов удалённо
+                        Управление агрооперациями и технологическими картами
                       </div>
                       <div className="mb-[24px] text-[16px] leading-[24px] text-[#717386] lg:mb-[32px]">
-                        Можно пригласить консультантов-агрономов, чтобы они
-                        смотрели данные, корректировали техкарты, помогали с
-                        аналитикой.
+                        Создавайте и настраивайте технологические карты,
+                        назначайте задачи сотрудникам и контролируйте выполнение
+                        работ в единой системе.
                       </div>
                     </div>
                   </SwiperSlide>
@@ -492,10 +541,22 @@ export const MainPage = () => {
                   </div>
                 </div>
               </div>
-              <div
-                className="hidden w-full rounded-brand-32 bg-cover bg-[left_top] lg:flex lg:w-1/2"
-                style={{ backgroundImage: `url(${FuncImg})` }}
-              />
+              <div className="relative hidden w-full overflow-hidden rounded-r-brand-32 lg:flex lg:w-1/2">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentFuncImage}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.45, ease: 'easeInOut' }}
+                    className="absolute inset-0 bg-[right_bottom] bg-no-repeat"
+                    style={{
+                      backgroundImage: `url(${currentFuncImage})`,
+                      backgroundSize: funcSlideIndex === 1 ? '100%' : '90%',
+                    }}
+                  />
+                </AnimatePresence>
+              </div>
               <img
                 src={FuncImgMobile}
                 className="block w-full lg:hidden"
@@ -570,7 +631,7 @@ export const MainPage = () => {
                 <a
                   href="http://83.147.246.15:5173/"
                   target="_blank"
-                  className="button-small mt-[8px] text-center !rounded-brand-100 !bg-white !text-[#212333] hover:!bg-white/90 lg:mt-[24px]"
+                  className="button-small mt-[8px] !rounded-brand-100 !bg-white text-center !text-[#212333] hover:!bg-white/90 lg:mt-[24px]"
                   rel="noreferrer"
                 >
                   Начать работу
@@ -674,10 +735,11 @@ export const MainPage = () => {
   );
 };
 
-const WorksItem = ({ icon, title, list }) => (
+const WorksItem = ({ icon, title, list, isActive, handleClick = () => {} }) => (
   <div
-    className="works-item rounded-brand-32 border-4 border-[#F5F7FC] bg-white p-[32px] lg:w-[calc(50%-8px)] lg:hover:border-[#3C7BF01A]"
+    className={`works-item rounded-brand-32 border-4 border-[#F5F7FC] bg-white p-[32px] lg:w-[calc(50%-8px)] lg:hover:border-[#3C7BF01A]${isActive ? ' border-[#3C7BF01A]' : ''}`}
     key={title}
+    onClick={handleClick}
   >
     <img className="mb-[24px] max-w-[32px]" src={icon} alt="" />
     <div className="mb-[12px] text-[20px] font-medium leading-[28px] text-[#9195b3] lg:max-w-[120px] lg:text-[24px] lg:leading-[32px]">
