@@ -1,8 +1,8 @@
+import { Helmet } from 'react-helmet-async';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import { RoutesPath } from 'shared/routes-path';
 import { Seo } from 'shared/ui';
-import { Helmet } from 'react-helmet-async';
 
 import Footer from '../../components/footer';
 import Header from '../../components/header';

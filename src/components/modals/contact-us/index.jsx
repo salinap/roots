@@ -7,7 +7,7 @@ import { useModalStore } from 'shared/store/modal';
 
 import Logo from '../../../assets/images/logo.svg';
 
-const formatPhoneValue = (digits) => {
+export const formatPhoneValue = (digits) => {
   const parts = [];
 
   if (digits.length > 0) {
@@ -99,7 +99,7 @@ const ContactUsModal = () => {
   };
 
   const sendFeedback = async (data) => {
-    const BOT_TOKEN = '8390171403:AAFcXXh8YgMs4LRrrMTfnpi2vD6Fi05KheY';
+    const BOT_TOKEN = '7958632359:AAHLidU0IYxGcaAwf1A0iEPEwPnJR0cXGRo';
     const CHAT_ID = '-5052517547';
 
     if (!BOT_TOKEN || !CHAT_ID) {
@@ -205,7 +205,7 @@ const ContactUsModal = () => {
 
   return (
     <div className="relative flex h-full min-h-dvh min-w-[100dvw] flex-col bg-[#F5F7FC]">
-      <div className="mx-auto max-w-[1440px]">
+      <div className="mx-auto w-[1440px]">
         <div className="relative mx-[16px] border-b border-[#efefef] lg:mx-[48px]">
           <div className="py-[24px] lg:pt-[48px]">
             <img src={Logo} className="max-h-[34px] lg:max-h-max" alt="" />
@@ -215,15 +215,17 @@ const ContactUsModal = () => {
       <div className="container flex flex-1 flex-col justify-center">
         <div className="flex flex-col gap-[24px] py-[24px] lg:flex-row lg:gap-[96px] lg:py-[96px]">
           <div className="flex flex-1 flex-col">
-            <h3 className="!text-left">Расчет стоимости</h3>
-            <div className="subtitle !text-left">
+            <h3 className="!text-left">
+              Связаться <br className="hidden lg:block" />с нами
+            </h3>
+            {/* <div className="subtitle !text-left">
               выберите оборудование и его количество и{' '}
               <br className="hidden lg:block" />
               мы рассчитаем примерную стоимость заказа
-            </div>
+            </div> */}
             <div className="mt-auto">
               <div className="mb-[8px] text-[20px] leading-[32px] text-[#717386]">
-                Горячая линия
+                Телефон
               </div>
               <div className="mb-[32px] text-[32px] font-medium leading-[40px] text-[#191C25]">
                 +7 495 006 21 57

@@ -16,7 +16,6 @@ import HowImg3 from '../../assets/icons/how3.svg';
 import HowImg4 from '../../assets/icons/how4.svg';
 import Mouse from '../../assets/icons/mouse.svg';
 import SlideArrow from '../../assets/icons/slide-back.svg';
-import Video from '../../assets/icons/video.svg';
 import WhyImg1 from '../../assets/icons/why1.svg';
 import WhyImg2 from '../../assets/icons/why2.svg';
 import WhyImg3 from '../../assets/icons/why3.svg';
@@ -27,24 +26,24 @@ import WorkIcon3 from '../../assets/icons/work3.svg';
 import WorkIcon4 from '../../assets/icons/work4.svg';
 import BannerBg from '../../assets/images/banner-bg.png';
 import BannerImg1 from '../../assets/images/banner-img1.svg';
-import EquipImg1 from '../../assets/images/equip1.png';
-import EquipImg2 from '../../assets/images/equip2.png';
-import EquipImg3 from '../../assets/images/equip3.png';
-import EquipImg4 from '../../assets/images/equip4.png';
-import EquipImg5 from '../../assets/images/equip5.png';
+import EquipImg1 from '../../assets/images/equip/1.jpg';
+import EquipImg2 from '../../assets/images/equip/2.jpg';
+import EquipImg3 from '../../assets/images/equip/3.jpg';
+import EquipImg4 from '../../assets/images/equip/4.jpg';
+import EquipImg5 from '../../assets/images/equip/5.jpg';
+import EquipImg6 from '../../assets/images/equip/6.jpg';
+import EquipImg7 from '../../assets/images/equip/7.jpg';
 import FuncBg from '../../assets/images/func-bg.png';
 import FuncImg2 from '../../assets/images/func-img-2.png';
 import FuncImgMobile from '../../assets/images/func-img-mobile.png';
 import FuncImg from '../../assets/images/func-img.png';
 import MainImg from '../../assets/images/main.jpg';
 import StartBg from '../../assets/images/start.jpg';
-import VideoPreview from '../../assets/images/video-preview1.jpg';
 import WorkImg1 from '../../assets/images/work-img-1.jpg';
 import WorkImg2 from '../../assets/images/work-img-2.jpg';
 import WorkImg3 from '../../assets/images/work-img-3.jpg';
 import WorkImg4 from '../../assets/images/work-img-4.jpg';
 import ContactUsModal from '../../components/modals/contact-us';
-import VideoCard from '../../components/video-card';
 
 const WORK_LIST = [
   {
@@ -94,27 +93,44 @@ const EQUIP_LIST = [
   {
     img: EquipImg1,
     title: <>Головной модуль</>,
-    count: '4 позиции',
+    count:
+      'Головной модуль — это коммуникационный центр системы. Функции: подключение к интернету, получение данных от полевых модулей, передача информации на сервер, синхронизация с платформой мониторинга.',
   },
   {
     img: EquipImg2,
-    title: <>Полевой модуль</>,
-    count: '8 позиций',
+    title: <>Датчик залегания воды</>,
+    count:
+      'Датчик измеряет распределение влаги на разных глубинах. Функции: определение уровня залегания воды, анализ влажности по слоям почвы, контроль глубины проникновения полива. Позволяет понимать, насколько эффективно работает система орошения.',
   },
   {
     img: EquipImg3,
-    title: <>Метеостанции</>,
-    count: '16 позиций',
+    title: <>Полевой модуль</>,
+    count:
+      'Полевой модуль — это центральный элемент системы мониторинга, устанавливаемый непосредственно на участке.В состав модуля входят: аккумулятор, электронная плата обработки данных, интерфейсы подключения датчиков. Модуль поддерживает подключение до 5 различных датчиков.',
   },
   {
     img: EquipImg4,
-    title: <>Земляные сенсоры</>,
-    count: '12 позиций',
+    title: <>Метеостанция</>,
+    count:
+      'Метеостанция измеряет ключевые климатические параметры участка. Основные показатели: температура воздуха, влажность воздуха, скорость и направление ветра, уровень солнечной радиации, осадки. Данные используются для анализа условий выращивания и построения прогнозов.',
   },
   {
     img: EquipImg5,
-    title: <>Грунтовые воды</>,
-    count: '7 позиций',
+    title: <>Почвенный сенсор</>,
+    count:
+      'Почвенный сенсор измеряет ключевые параметры почвы в режиме реального времени и позволяет контролировать состояние корневой зоны растений.',
+  },
+  {
+    img: EquipImg6,
+    title: <>Солнечная панель</>,
+    count:
+      'Компактная солнечная панель обеспечивает автономное питание системы. Возможности: зарядка полевого модуля, поддержание работы в удаленных местах, снижение зависимости от внешнего электропитания. Используется как основной или резервный источник питания.',
+  },
+  {
+    img: EquipImg7,
+    title: <>Кабель питания</>,
+    count:
+      'Кабель питания используется для подключения системы к внешнему источнику электричества. Используется как для головного, так и для полевого модуля. ',
   },
 ];
 
@@ -184,7 +200,7 @@ export const MainPage = () => {
             </a>
             <div className="mt-[40px] flex items-center justify-center pb-[48px] lg:mt-[148px] lg:justify-between">
               <img src={Mouse} alt="" className="hidden lg:block" />
-              <a
+              {/* <a
                 href="#"
                 className="gradient-border flex items-center gap-[20px] rounded-[24px] p-[16px] lg:rounded-brand-32 lg:p-[24px]"
               >
@@ -192,7 +208,7 @@ export const MainPage = () => {
                 <div className="text-[20px] leading-[32px] text-[white] lg:text-[24px]">
                   Видео-обзор
                 </div>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
@@ -210,7 +226,7 @@ export const MainPage = () => {
                     Точность прогноза болезней
                   </div>
                   <div className="text-[20px] font-medium leading-[28px] text-[#212333] lg:text-[24px] lg:leading-[32px]">
-                    94% (виноград) - 96% (теплицы)
+                    точность модели до 94–96%
                   </div>
                 </div>
               </div>
@@ -221,7 +237,7 @@ export const MainPage = () => {
                     Предсказание фенологических фаз
                   </div>
                   <div className="text-[20px] font-medium leading-[28px] text-[#212333] lg:text-[24px] lg:leading-[32px]">
-                    погрешность ≤ 2 дня
+                    погрешность ≤ 2 дней
                   </div>
                 </div>
               </div>
@@ -229,10 +245,10 @@ export const MainPage = () => {
                 <img className="max-w-[56px]" src={WhyImg3} alt="" />
                 <div>
                   <div className="mb-[2px] text-[18px] leading-[28px] text-[#717386] lg:text-[20px] lg:leading-[32px]">
-                    Энергоэффективность в теплицах
+                    Оптимизация использования ресурсов
                   </div>
                   <div className="text-[20px] font-medium leading-[28px] text-[#212333] lg:text-[24px] lg:leading-[32px]">
-                    снижение затрат на 35%
+                    снижение затрат на полив и обработки до 35%
                   </div>
                 </div>
               </div>
@@ -240,7 +256,7 @@ export const MainPage = () => {
                 <img className="max-w-[56px]" src={WhyImg4} alt="" />
                 <div>
                   <div className="mb-[2px] text-[18px] leading-[28px] text-[#717386] lg:text-[20px] lg:leading-[32px]">
-                    Калибровка сенсоров
+                    Автоматическая калибровка сенсоров
                   </div>
                   <div className="text-[20px] font-medium leading-[28px] text-[#212333] lg:text-[24px] lg:leading-[32px]">
                     отклонение ≤ 1.8%
@@ -391,7 +407,7 @@ export const MainPage = () => {
           </div>
         </div>
       </div>
-      <div className="pb-[48px] pt-[16px] lg:pb-[96px] lg:pt-[32px]">
+      {/* <div className="pb-[48px] pt-[16px] lg:pb-[96px] lg:pt-[32px]">
         <div className="container">
           <div className="flex flex-col rounded-[40px] bg-white p-[16px] lg:flex-row lg:flex-nowrap">
             <div className="flex w-full lg:w-1/2 lg:pr-[16px]">
@@ -429,7 +445,7 @@ export const MainPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="mx-auto max-w-[1440px] py-[16px] lg:p-[16px]">
         <div className="rounded-brand-32 bg-white bg-cover bg-center pb-[16px] pt-[48px] lg:py-[96px]">
           <div className="container">
@@ -466,27 +482,29 @@ export const MainPage = () => {
                   <SwiperSlide className="h-full">
                     <div className="!w-auto lg:pr-[12px]">
                       <div className="mb-[8px] text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[12px] lg:text-[28px] lg:leading-[36px]">
-                        Мониторинг состояния растений
+                        Мониторинг растений в реальном времени
                       </div>
                       <div className="mb-[24px] text-[16px] leading-[24px] text-[#717386] lg:mb-[32px]">
-                        Получайте данные о влажности, температуре, освещённости
-                        и других параметрах с датчиков в режиме реального
-                        времени.
+                        Получайте данные с полевых и климатических датчиков по
+                        более чем 20 параметрам для полного контроля состояния
+                        растений и оперативного реагирования.
                       </div>
                       <div className="mb-[8px] text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[12px] lg:text-[28px] lg:leading-[36px]">
-                        Управление задачами и&nbsp;технологическими картами
+                        Интеллектуальные уведомления и события
                       </div>
                       <div className="mb-[24px] text-[16px] leading-[24px] text-[#717386] lg:mb-[32px]">
-                        Создаёте планы-техкарты по выращиванию культур,
-                        назначаете сотрудников, отслеживаете выполнение.
+                        Система автоматически сообщает о критических изменениях
+                        параметров, отклонениях от нормы и необходимых
+                        действиях, без постоянного контроля со стороны
+                        пользователя.
                       </div>
                       <div className="mb-[8px] text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[12px] lg:text-[28px] lg:leading-[36px]">
-                        Подключение агрономов и&nbsp;экспертов удалённо
+                        Прогнозирование заболеваний и этапов роста
                       </div>
                       <div className="mb-[24px] text-[16px] leading-[24px] text-[#717386] lg:mb-[32px]">
-                        Можно пригласить консультантов-агрономов, чтобы они
-                        смотрели данные, корректировали техкарты, помогали с
-                        аналитикой.
+                        AI анализирует данные сенсоров и динамику развития
+                        растений, прогнозируя риски заболеваний и ключевые
+                        стадии роста для своевременных решений.
                       </div>
                     </div>
                   </SwiperSlide>
@@ -552,7 +570,7 @@ export const MainPage = () => {
                     className="absolute inset-0 bg-[right_bottom] bg-no-repeat"
                     style={{
                       backgroundImage: `url(${currentFuncImage})`,
-                      backgroundSize: funcSlideIndex === 1 ? '100%' : '90%',
+                      backgroundSize: funcSlideIndex === 1 ? '98%' : '100%',
                     }}
                   />
                 </AnimatePresence>
@@ -583,11 +601,11 @@ export const MainPage = () => {
                   alt=""
                 />
                 <div className="mb-[8px] text-[28px] font-medium leading-[38px] text-white lg:mb-[12px]">
-                  Регистрируетесь в системе
+                  Регистрация
                 </div>
                 <div className="text-[16px] font-medium leading-[24px] text-white">
-                  Простая регистрация с понятным интерфейсом и поддержкой — вы
-                  создаёте аккаунт и получаете доступ к панели управления.
+                  Создайте аккаунт и получите доступ к панели управления, где
+                  можно добавить хозяйство, участки, культуры и оборудование.
                 </div>
               </div>
               <div className="flex flex-1 flex-col rounded-[24px] bg-[#FFFFFF1F] p-[20px] backdrop-blur-[7px] lg:rounded-brand-32 lg:p-[32px]">
@@ -597,12 +615,11 @@ export const MainPage = () => {
                   alt=""
                 />
                 <div className="mb-[8px] text-[28px] font-medium leading-[38px] text-white lg:mb-[12px]">
-                  Покупаете оборудование на нашем сайте
+                  Подбор
                 </div>
                 <div className="text-[16px] font-medium leading-[24px] text-white">
-                  Выбираете устройства из нашего рекомендованного списка. Если
-                  сомневаетесь — мы подскажем, какое оборудование подойдёт
-                  именно для вас.
+                  Выберите подходящее оборудование из рекомендованного списка,
+                  мы поможем подобрать оптимальный набор под ваши задачи.
                 </div>
               </div>
               <div className="flex flex-1 flex-col rounded-[24px] bg-[#FFFFFF1F] p-[20px] backdrop-blur-[7px] lg:rounded-brand-32 lg:p-[32px]">
@@ -612,11 +629,11 @@ export const MainPage = () => {
                   alt=""
                 />
                 <div className="mb-[8px] text-[28px] font-medium leading-[38px] text-white lg:mb-[12px]">
-                  Устанавливаете оборудование
+                  Настройка
                 </div>
                 <div className="text-[16px] font-medium leading-[24px] text-white">
-                  Подключаете устройства согласно интерактивной инструкции. При
-                  необходимости — мы помогаем на каждом шаге.
+                  Установите и подключите устройства по пошаговой инструкции.
+                  При необходимости наша команда поможет на каждом этапе.
                 </div>
               </div>
               <div className="flex flex-1 flex-col rounded-[24px] bg-[#FFFFFF1F] p-[20px] backdrop-blur-[7px] lg:rounded-brand-32 lg:p-[32px]">
@@ -626,7 +643,7 @@ export const MainPage = () => {
                   alt=""
                 />
                 <div className="mb-[8px] text-[28px] font-medium leading-[38px] text-white lg:mb-[12px]">
-                  Начинаете работу
+                  Начните работу
                 </div>
                 <a
                   href="http://83.147.246.15:5173/"
@@ -686,7 +703,7 @@ export const MainPage = () => {
           >
             {[...EQUIP_LIST, ...EQUIP_LIST, ...EQUIP_LIST, ...EQUIP_LIST].map(
               ({ img, title, count }, index) => (
-                <SwiperSlide className="h-full max-w-[288px]" key={title}>
+                <SwiperSlide className="h-full max-w-[395px]" key={title}>
                   <EquipItem
                     key={title + index}
                     img={img}
@@ -762,16 +779,14 @@ const EquipItem = ({ img, title, count }) => (
     className="equip-item rounded-brand-32 border-4 border-[#F5F7FC] bg-white p-[16px] lg:w-[calc(50%-8px)]"
     key={title}
   >
-    <div className="mb-[16px] flex h-[264px] w-[256px] items-center justify-center p-[16px]">
+    <div className="mb-[16px] flex h-[320px] w-full items-center justify-center p-[16px]">
       <img className="block max-h-full max-w-full" src={img} alt="" />
     </div>
     <div className="p-[16px]">
-      <div className="text-center text-[20px] font-medium leading-[32px] text-[#212333]">
+      <div className="mb-[8px] text-[20px] font-medium leading-[32px] text-[#212333]">
         {title}
       </div>
-      <div className="text-center text-[16px] leading-[24px] text-[#717386]">
-        {count}
-      </div>
+      <div className="text-[16px] leading-[24px] text-[#717386]">{count}</div>
     </div>
   </div>
 );

@@ -25,10 +25,10 @@ const NAV = [
     title: 'О компании',
     to: RoutesPath.ABOUT,
   },
-  {
-    title: 'Отзывы',
-    to: RoutesPath.REVIEWS,
-  },
+  // {
+  //   title: 'Отзывы',
+  //   to: RoutesPath.REVIEWS,
+  // },
 ];
 
 const Header = () => {

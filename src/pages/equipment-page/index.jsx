@@ -1,13 +1,16 @@
 import classNames from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import { NavLink } from 'react-router-dom';
 
 import { useModalStore } from 'shared/store';
 
 import EmptyImgIcon from '../../assets/icons/empty-image-icon.svg';
-import SearchIcon from '../../assets/icons/search.svg';
+import MinusIcon from '../../assets/icons/minus-icon.svg';
+import PlusIcon from '../../assets/icons/plus-icon.svg';
+import RadioCheckActiveIcon from '../../assets/icons/radio-check-active.svg';
+import TrashIcon from '../../assets/icons/trash-icon.svg';
 import BannerImg from '../../assets/images/banner-img-1.png';
 import EquipImg1 from '../../assets/images/equip1.png';
 import EquipImg2 from '../../assets/images/equip2.png';
@@ -16,7 +19,9 @@ import EquipImg4 from '../../assets/images/equip4.png';
 import EquipImg5 from '../../assets/images/equip5.png';
 import EquipMainImg from '../../assets/images/equipment-main.jpg';
 import Banner from '../../components/banner';
-import ContactUsModal from '../../components/modals/contact-us';
+import ContactUsModal, {
+  formatPhoneValue,
+} from '../../components/modals/contact-us';
 import { useIsDesktop } from '../../hooks';
 
 const FILTER = [
@@ -90,13 +95,77 @@ const EQUIPMENTS = [
 export const EquipmentPage = () => {
   const [type, setType] = useState(1);
   const [step, setStep] = useState(1);
+  const [selectedItems, setSelectedItems] = useState({});
+  const stepsRef = useRef(null);
+  const isFirstStepRender = useRef(true);
   const isDesktop = useIsDesktop();
   const [value, setValue] = useState('');
+  const [phone, setPhone] = useState('');
 
   const { openModal } = useModalStore();
   const handleFeedbackClick = () => {
     openModal(<ContactUsModal />);
   };
+
+  const selectedEquipmentIndexes = Object.keys(selectedItems).map(Number);
+  const selectedEquipments = selectedEquipmentIndexes.map((index) => ({
+    ...EQUIPMENTS[index],
+    index,
+  }));
+
+  const handlePhoneChange = (e) => {
+    const onlyDigits = e.target.value.replace(/\D/g, '').slice(0, 10);
+    setPhone(formatPhoneValue(onlyDigits));
+  };
+
+  const handleEquipmentSelect = (index) => {
+    setSelectedItems((prev) => {
+      if (prev[index]) {
+        const next = { ...prev };
+        delete next[index];
+        return next;
+      }
+
+      return {
+        ...prev,
+        [index]: 1,
+      };
+    });
+  };
+
+  const handleQuantityChange = (index, value) => {
+    setSelectedItems((prev) => {
+      if (value <= 0) {
+        const next = { ...prev };
+        delete next[index];
+        return next;
+      }
+
+      return {
+        ...prev,
+        [index]: value,
+      };
+    });
+  };
+
+  const handleRemoveItem = (index) => handleQuantityChange(index, 0);
+
+  const hasSelectedItems = selectedEquipmentIndexes.length > 0;
+
+  useEffect(() => {
+    if (isFirstStepRender.current) {
+      isFirstStepRender.current = false;
+      return;
+    }
+
+    stepsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [step]);
+
+  useEffect(() => {
+    if (step === 3 && !hasSelectedItems) {
+      setStep(1);
+    }
+  }, [hasSelectedItems, step]);
 
   return (
     <>
@@ -122,7 +191,10 @@ export const EquipmentPage = () => {
       </div>
       <div className="py-[48px] lg:py-[96px]">
         <div className="container">
-          <div className="mx-[-24px] mb-[48px] overflow-auto whitespace-nowrap lg:mx-0">
+          <div
+            ref={stepsRef}
+            className="mx-[-24px] mb-[48px] overflow-auto whitespace-nowrap lg:mx-0"
+          >
             <div className="flex gap-[32px] border-b border-[#E4EAFA]">
               <div
                 className={`flex flex-1 cursor-pointer items-center gap-[24px] border-b-[3px] py-[17px]${step == 1 ? ' border-[#26B862]' : ' border-transparent'}`}
@@ -345,8 +417,14 @@ export const EquipmentPage = () => {
                 </div>
               </div>
               <div
-                className={`flex flex-1 cursor-pointer items-center gap-[24px] border-b-[3px] py-[17px]${step == 3 ? ' border-[#26B862]' : ' border-transparent'}`}
-                onClick={() => setStep(3)}
+                className={classNames(
+                  `flex flex-1 items-center gap-[24px] border-b-[3px] py-[17px]${step == 3 ? ' border-[#26B862]' : ' border-transparent'}`,
+                  {
+                    'cursor-pointer': hasSelectedItems,
+                    'cursor-not-allowed opacity-50': !hasSelectedItems,
+                  },
+                )}
+                onClick={() => hasSelectedItems && setStep(3)}
               >
                 <div
                   className={classNames(
@@ -411,92 +489,259 @@ export const EquipmentPage = () => {
               </div>
             </div>
           </div>
-
-          <div className="block lg:flex lg:flex-row lg:flex-nowrap lg:items-center lg:gap-[24px]">
-            <div className="flex-1">
-              <div className="relative overflow-hidden rounded-brand-100">
-                <input
-                  type="text"
-                  name="search"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                  placeholder="Поиск по названию"
-                  // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
-                  className="mb-[16px] w-full bg-white py-[16px] pl-[24px] pr-[58px] text-[20px] leading-[32px] text-[#4b4b51] placeholder-[#717386] lg:mb-0"
-                />
-                <img
-                  src={SearchIcon}
-                  alt="search"
-                  className="absolute right-[16px] top-1/2 -translate-y-1/2"
-                />
-              </div>
-            </div>
-            <div className="mx-[-24px] overflow-auto whitespace-nowrap text-center lg:mx-0">
-              <div className="inline-flex flex-nowrap justify-center rounded-brand-100 bg-white pl-[24px] lg:flex-wrap lg:pl-0">
-                {FILTER.map((item) => (
-                  <div
-                    className={`${item.type === type ? 'pointer-events-none bg-[#212333] text-white' : 'cursor-pointer bg-white text-[#717386]'} text-nowrap rounded-full px-[24px] py-[12px] text-[16px] leading-[24px] lg:text-[20px] lg:leading-[32px]`}
-                    key={item.type}
-                    onClick={() => setType(item.type)}
-                  >
-                    {item.title}
-                  </div>
+          {step < 3 && (
+            <>
+              <div className="my-[40px] flex flex-wrap gap-[16px] lg:mb-[72px] lg:mt-[48px]">
+                {EQUIPMENTS.map((item, index) => (
+                  <EquipItem
+                    key={index}
+                    {...item}
+                    isSelected={selectedEquipmentIndexes.includes(index)}
+                    onSelect={() => handleEquipmentSelect(index)}
+                  />
                 ))}
               </div>
-              <div className="inline-flex px-[12px] sm:hidden" />
+              <div className="flex justify-center">
+                <ReactPaginate
+                  className="pagination"
+                  breakLabel="..."
+                  previousLabel={
+                    <svg
+                      width="10"
+                      height="18"
+                      viewBox="0 0 10 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8.25 1.06067L0.75 8.56067L8.25 16.0607"
+                        stroke="#696777"
+                        strokeWidth="1.5"
+                        strokeLinecap="square"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  }
+                  onPageChange={console.log}
+                  pageCount={20}
+                  pageRangeDisplayed={isDesktop ? 2 : 2}
+                  marginPagesDisplayed={isDesktop ? 3 : 0}
+                  nextLabel={
+                    <svg
+                      width="10"
+                      height="18"
+                      viewBox="0 0 10 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="rotate-180"
+                    >
+                      <path
+                        d="M8.25 1.06067L0.75 8.56067L8.25 16.0607"
+                        stroke="#696777"
+                        strokeWidth="1.5"
+                        strokeLinecap="square"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  }
+                  renderOnZeroPageCount={null}
+                />
+              </div>
+            </>
+          )}
+          {step === 3 && (
+            <div className="mx-[-16px] flex flex-col gap-[16px] lg:mx-0 lg:flex-row lg:gap-[32px]">
+              <div className="flex flex-1 flex-col rounded-[24px] bg-white p-[20px] lg:rounded-brand-32 lg:p-[40px]">
+                <>
+                  <div className="mb-[20px] text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[24px] lg:text-[28px] lg:leading-[36px]">
+                    Вы выбрали
+                  </div>
+                  <div className="relative mb-[24px]">
+                    <div className="space-y-[2px] pr-[18px]">
+                      {selectedEquipments.map((item) => (
+                        <div
+                          key={item.index}
+                          className="flex min-h-[64px] items-center gap-[16px] rounded-brand-16 p-[8px]"
+                        >
+                          <div className="size-48px flex max-h-[48px] max-w-[48px] items-center justify-center rounded-brand-16 bg-[#F5F7FC] p-[8px]">
+                            {item.img ? (
+                              <img
+                                src={item.img}
+                                className="block max-h-full max-w-full"
+                                alt={item.title}
+                              />
+                            ) : (
+                              <img
+                                src={EmptyImgIcon}
+                                className="block max-h-full max-w-full"
+                                alt={item.title}
+                              />
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <p className="pr-[16px] text-[16px] font-medium leading-[24px] text-[#212333]">
+                              {item.title}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-[2px]">
+                            <button
+                              type="button"
+                              onClick={() =>
+                                handleQuantityChange(
+                                  item.index,
+                                  selectedItems[item.index] - 1,
+                                )
+                              }
+                              className="flex size-[24px] items-center justify-center"
+                            >
+                              <img
+                                src={MinusIcon}
+                                alt="Уменьшить количество"
+                                className="size-[24px]"
+                              />
+                            </button>
+                            <span className="min-w-[24px] text-center text-[14px] font-medium text-[#212333]">
+                              {selectedItems[item.index]}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                handleQuantityChange(
+                                  item.index,
+                                  selectedItems[item.index] + 1,
+                                )
+                              }
+                              className="flex size-[24px] items-center justify-center"
+                            >
+                              <img
+                                src={PlusIcon}
+                                alt="Увеличить количество"
+                                className="size-[24px]"
+                              />
+                            </button>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveItem(item.index)}
+                            className="relative flex size-[36px] items-center justify-center"
+                          >
+                            <img
+                              src={TrashIcon}
+                              alt="Удалить товар"
+                              className="size-[36px]"
+                            />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              </div>
+
+              <div className="flex flex-1 flex-col rounded-[24px] bg-white p-[20px] lg:rounded-brand-32 lg:p-[40px]">
+                <div className="mb-auto">
+                  <div className="mb-[20px] text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[24px] lg:text-[28px] lg:leading-[36px]">
+                    Расчет
+                  </div>
+                  <div className="flex flex-col gap-[32px]">
+                    <div>
+                      <div className="mb-[8px] text-[16px] font-medium leading-[24px] text-[#212333]">
+                        Оборудование
+                      </div>
+                      <div className="flex items-start justify-between gap-[16px] border-b border-[#E4EAFA] py-[16px]">
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          Всего единиц оборудования
+                        </span>
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          46
+                        </span>
+                      </div>
+                      <div className="flex items-start justify-between gap-[16px] border-b border-[#E4EAFA] py-[16px]">
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          Стоимость за одну единицу
+                        </span>
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          150 ₽
+                        </span>
+                      </div>
+                      <div className="flex items-start justify-between gap-[16px] border-b border-[#E4EAFA] py-[16px]">
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          Стоимость за все оборудование
+                        </span>
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          6 900 ₽
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="mb-[8px] text-[16px] font-medium leading-[24px] text-[#212333]">
+                        Программное обеспечение
+                      </div>
+                      <div className="flex items-start justify-between gap-[16px] border-b border-[#E4EAFA] py-[16px]">
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          Стоимость программного обеспечения / месяц
+                        </span>
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          10 200 ₽
+                        </span>
+                      </div>
+                      <div className="flex items-start justify-between gap-[16px] border-b border-[#E4EAFA] py-[16px]">
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          Стоимость настройки и установки
+                        </span>
+                        <span className="text-[16px] leading-[24px] text-[#717386]">
+                          Бесплатно
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mb-[20px] mt-[40px] text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[24px] lg:text-[28px] lg:leading-[36px]">
+                    Оформление заявки
+                  </div>
+                  <form className="flex flex-col gap-[24px]">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Имя"
+                      className="rounded-[12px] border border-[#D6DCEB] bg-white px-[24px] py-[15px] text-[20px] leading-[32px] text-[#212333] placeholder:text-[#717386] focus:shadow-[0_0_0_2px_#3C7BF0] focus:outline-none"
+                    />
+                    <div className="flex items-center rounded-[12px] border border-[#D6DCEB] bg-white px-[24px] py-[15px] focus-within:shadow-[0_0_0_2px_#3C7BF0]">
+                      <label
+                        className="mr-[12px] cursor-text text-[20px] leading-none text-[#212333]"
+                        htmlFor="phone"
+                      >
+                        +7
+                      </label>
+                      <input
+                        value={phone}
+                        onChange={handlePhoneChange}
+                        id="phone"
+                        type="tel"
+                        name="phone"
+                        placeholder="999 999 99 99"
+                        inputMode="numeric"
+                        className="w-full border-none bg-transparent text-[20px] leading-[32px] text-[#212333] placeholder:text-[#717386]"
+                      />
+                    </div>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="E-mail"
+                      className="rounded-[12px] border border-[#D6DCEB] bg-white px-[24px] py-[15px] text-[20px] leading-[32px] text-[#212333] placeholder:text-[#717386] focus:shadow-[0_0_0_2px_#3C7BF0] focus:outline-none"
+                    />
+                    <textarea
+                      name="comment"
+                      placeholder="Комментарий"
+                      className="rounded-[12px] border border-[#D6DCEB] bg-white px-[24px] py-[15px] text-[20px] leading-[32px] text-[#212333] placeholder:text-[#717386] focus:shadow-[0_0_0_2px_#3C7BF0] focus:outline-none"
+                    />
+                  </form>
+                </div>
+                <button className="button-small mt-[40px] flex w-full justify-center lg:inline-flex lg:w-auto">
+                  Оформить заказ на 17 100 ₽
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="my-[40px] flex flex-wrap gap-[16px] lg:mb-[72px] lg:mt-[48px]">
-            {EQUIPMENTS.map((item, index) => (
-              <EquipItem key={index} {...item} />
-            ))}
-          </div>
-          <div className="flex justify-center">
-            <ReactPaginate
-              className="pagination"
-              breakLabel="..."
-              previousLabel={
-                <svg
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.25 1.06067L0.75 8.56067L8.25 16.0607"
-                    stroke="#696777"
-                    strokeWidth="1.5"
-                    strokeLinecap="square"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              }
-              onPageChange={console.log}
-              pageCount={20}
-              pageRangeDisplayed={isDesktop ? 2 : 2}
-              marginPagesDisplayed={isDesktop ? 3 : 0}
-              nextLabel={
-                <svg
-                  width="10"
-                  height="18"
-                  viewBox="0 0 10 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="rotate-180"
-                >
-                  <path
-                    d="M8.25 1.06067L0.75 8.56067L8.25 16.0607"
-                    stroke="#696777"
-                    strokeWidth="1.5"
-                    strokeLinecap="square"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              }
-              renderOnZeroPageCount={null}
-            />
-          </div>
+          )}
         </div>
       </div>
       <Banner
@@ -506,12 +751,85 @@ export const EquipmentPage = () => {
         btnClick={handleFeedbackClick}
         img={BannerImg}
       />
+
+      <AnimatePresence>
+        {hasSelectedItems && (
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 32 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="fixed inset-x-0 bottom-0 z-30"
+          >
+            <div className="mx-auto w-full bg-white p-[16px] shadow-[0_-6px_20px_rgba(33,35,51,0.08)] lg:p-[20px_24px]">
+              <div className="container flex flex-col gap-[16px] lg:flex-row lg:items-center lg:justify-between">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedItems({});
+                    setStep(1);
+                  }}
+                  className="rounded-brand-16 bg-[#F5F7FC] px-[32px] py-[12px] text-[16px] font-medium leading-[24px] text-[#212333] opacity-100 hover:opacity-[0.64]"
+                >
+                  Отмена
+                </button>
+                <div className="flex w-full flex-col gap-[12px] lg:w-auto lg:flex-row lg:items-center">
+                  <button
+                    type="button"
+                    disabled={step <= 1}
+                    onClick={() => setStep((prev) => Math.max(prev - 1, 1))}
+                    className={classNames(
+                      'rounded-[16px] bg-[#F5F7FC] px-[32px] py-[12px] text-[16px] font-medium leading-[24px] text-[#212333]',
+                      {
+                        'opacity-50': step <= 1,
+                        'opacity-100 hover:opacity-[0.64]': step > 1,
+                      },
+                    )}
+                  >
+                    Назад
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setStep((prev) => Math.min(prev + 1, 3))}
+                    disabled={!hasSelectedItems}
+                    className={classNames(
+                      'rounded-brand-16 px-[32px] py-[12px] text-[16px] font-medium leading-[24px] text-white opacity-100',
+                      {
+                        'bg-[#212333] hover:opacity-80': step < 3,
+                        'bg-[#2BB663] hover:opacity-90': step === 3,
+                        'opacity-50': !hasSelectedItems,
+                      },
+                    )}
+                  >
+                    {step === 3 ? 'Оформить заказ на 17 100 ₽' : 'Далее'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
 
-const EquipItem = ({ img, title, desc, price }) => (
-  <div className="w-full rounded-brand-32 bg-white p-[8px] sm:w-[calc(50%-8px)] lg:w-[calc(33.333366666%-11px)] lg:p-[16px]">
+const EquipItem = ({ img, title, desc, price, isSelected, onSelect }) => (
+  <div
+    className={classNames(
+      'relative w-full rounded-brand-32 bg-white p-[8px] transition-shadow sm:w-[calc(50%-8px)] lg:w-[calc(33.333366666%-11px)] lg:p-[16px]',
+      {
+        'shadow-[0_0_0_2px_#C5EBD5]': isSelected,
+      },
+    )}
+    onClick={onSelect}
+  >
+    {isSelected && (
+      <img
+        src={RadioCheckActiveIcon}
+        alt="selected"
+        className="absolute right-[32px] top-[32px] z-[1]"
+      />
+    )}
     <div className="mb-[32px] flex h-[300px] w-full items-center justify-center rounded-brand-32 bg-[#F5F7FC] p-[16px]">
       {img ? (
         <img src={img} alt={title} className="block max-h-full max-w-full" />
@@ -525,11 +843,15 @@ const EquipItem = ({ img, title, desc, price }) => (
     <div className="mb-[24px] text-[16px] leading-[24px] text-[#717386]">
       {desc}
     </div>
-    <NavLink
-      to="/"
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation();
+        onSelect();
+      }}
       className="block w-full rounded-brand-16 bg-[#F5F7FC] p-[12px] text-center text-[16px] font-medium leading-[24px] text-[#212333] opacity-100 hover:opacity-[0.64]"
     >
       Купить за{' ' + price}
-    </NavLink>
+    </button>
   </div>
 );

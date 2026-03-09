@@ -28,32 +28,31 @@ const LIST = [
   {
     icon: Icon1,
     title: <>Технологические карты</>,
-    text: 'Гибкие, настраиваемые карты под разные культуры и типы грунта. Можно использовать готовые или создавать свои.',
+    text: 'Гибкие карты под разные культуры и типы грунта. Используйте готовые шаблоны или создавайте свои.',
   },
   {
     icon: Icon2,
     title: <>Управление процессами</>,
-    text: 'Календарь задач, напоминания и статусы обеспечивают прозрачный контроль и бесперебойный ход процессов.',
+    text: 'Календарь задач, напоминания и статусы помогают контролировать процессы и работать без сбоев.',
   },
   {
     icon: Icon3,
     title: <>Единая картина хозяйства</>,
-    text: 'Все участки и процессы интегрированы в единый интерфейс, который показывает состояние хозяйства в реальном времени.',
+    text: 'Единый интерфейс объединяет все участки и процессы, отображая данные в реальном времени.',
   },
   {
     icon: Icon4,
     title: <>Аналитика и динамика показателей</>,
-    text: 'Инструменты, которые помогают отслеживать изменения, выявлять закономерности и принимать взвешенные решения.',
+    text: 'Отслеживайте изменения, находите закономерности и принимайте обоснованные решения.',
   },
   {
     icon: Icon5,
     title: (
       <>
-        Совместная работа <br className="hidden lg:block" />с экспертами{' '}
-        <br className="hidden lg:block" />и сотрудниками
+        Совместная работа <br className="hidden lg:block" />с командой
       </>
     ),
-    text: 'Возможность подключать агрономов, консультантов и членов команды для координированной работы.',
+    text: 'Подключайте агрономов, консультантов и сотрудников для эффективной совместной работы.',
   },
   {
     icon: Icon6,
@@ -62,7 +61,7 @@ const LIST = [
         AI-рекомендации <br className="hidden lg:block" />и прогнозирование
       </>
     ),
-    text: 'Искусственный интеллект помогает выявлять риски, подсвечивать важные моменты и оптимизировать процессы.',
+    text: 'Искусственный интеллект помогает выявлять риски, подсказывает важные действия и оптимизирует процессы.',
   },
 ];
 
@@ -99,7 +98,7 @@ export const AboutPage = () => {
                   12 лет
                 </div>
                 <div className="text-[24px] leading-[32px] text-white lg:text-[20px] lg:leading-[28px]">
-                  создаем цифровые продукты для вашего бизнеса
+                  создаем цифровые решения для развития бизнеса
                 </div>
               </div>
               <div className="flex flex-1 flex-col rounded-[24px] bg-[#FFFFFF1F] p-[20px] backdrop-blur-[7px] lg:rounded-brand-32 lg:p-[32px]">
@@ -112,7 +111,7 @@ export const AboutPage = () => {
                   30+
                 </div>
                 <div className="text-[24px] leading-[32px] text-white lg:text-[20px] lg:leading-[28px]">
-                  сотрудников, глубоко погруженных в процессы
+                  специалистов, глубоко погруженных в процессы
                 </div>
               </div>
               <div className="flex flex-1 flex-col rounded-[24px] bg-[#FFFFFF1F] p-[20px] backdrop-blur-[7px] lg:rounded-brand-32 lg:p-[32px]">
@@ -122,10 +121,10 @@ export const AboutPage = () => {
                   alt=""
                 />
                 <div className="mb-[12px] font-unbounded text-[32px] font-semibold leading-[40px] text-white lg:mb-[16px] lg:text-[48px] lg:leading-[60px]">
-                  3 рынка
+                  3 страны
                 </div>
                 <div className="text-[24px] leading-[32px] text-white lg:text-[20px] lg:leading-[28px]">
-                  работаем в России и странах СНГ, развивая решения для региона
+                  развиваем цифровые решения для России и стран СНГ
                 </div>
               </div>
             </div>
@@ -164,11 +163,8 @@ export const AboutPage = () => {
       </div>
       <div className="py-[48px] lg:py-[96px]">
         <div className="container">
-          <h3>
-            Что делает Root’s <br className="hidden lg:block" />
-            ценным инструментом
-          </h3>
-          <div className="subtitle">и сокращаем издержки</div>
+          <h3>Почему Root’s помогает</h3>
+          <div className="subtitle">снижать издержки</div>
           <div className="lg:hidden">
             <Swiper
               modules={[Navigation, Autoplay]}
@@ -249,8 +245,8 @@ export const AboutPage = () => {
                   Контакты
                 </div>
                 <div className="mb-[20px] flex text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[24px] lg:text-[28px] lg:leading-[36px]">
-                  Готовы ответить на все <br className="hidden lg:block" />{' '}
-                  интересующие вас вопросы
+                  Ответим на ваши вопросы <br className="hidden lg:block" /> и
+                  поможем подобрать решение
                 </div>
                 <img src={NextIcon} alt="" />
               </button>
@@ -262,9 +258,8 @@ export const AboutPage = () => {
                   Инвесторам
                 </div>
                 <div className="mb-[20px] flex text-[24px] font-medium leading-[32px] text-[#212333] lg:mb-[24px] lg:text-[28px] lg:leading-[36px]">
-                  Презентация и&nbsp;контактные{' '}
-                  <br className="hidden lg:block" />
-                  данные для инвесторов
+                  Презентационные материалы <br className="hidden lg:block" />
+                  для инвесторов и партнёров
                 </div>
                 <img src={NextIcon} alt="" />
               </NavLink>

@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import React from 'react';
+
 interface ModalState {
   isOpen: boolean;
   content: React.ReactNode | null;

@@ -92,14 +92,14 @@ export const TariffsPage = () => {
           <div className="container">
             <div className="max-w-[880px] pb-[136px] pt-[200px] lg:pb-[112px] lg:pt-[228px]">
               <h1 className="mb-[16px] !font-semibold lg:mb-[24px]">
-                <span className="font-semibold text-white">Платите</span> ровно
-                за то, что{' '}
-                <span className="font-semibold text-white">вам нужно</span>
+                <span className="font-semibold text-white">Платите</span> только
+                за то, чем{' '}
+                <span className="font-semibold text-white">пользуетесь</span>
               </h1>
               <div className="text-[20px] font-medium leading-[28px] text-white lg:text-[24px] lg:leading-[40px]">
-                Плата взимается за каждый подключенный датчик в месяц,{' '}
-                <br className="hidden lg:block" />а также за покупку и
-                использование оборудования.
+                Оплата начисляется ежемесячно за каждый подключенный датчик.{' '}
+                <br className="hidden lg:block" /> Оборудование оплачивается
+                отдельно.
               </div>
             </div>
           </div>
@@ -118,7 +118,7 @@ export const TariffsPage = () => {
                 Бонус
               </div>
               <div className="text-[16px] leading-[24px] text-[#717386]">
-                Подключитесь сейчас и получите 10 000 рублей
+                Подключитесь сейчас и получите 10 000 рублей на баланс
               </div>
             </div>
             <div className="w-full rounded-[24px] bg-white p-[24px] lg:w-[calc(33.333366666%-11px)] lg:rounded-brand-32 lg:p-[40px]">
@@ -144,8 +144,7 @@ export const TariffsPage = () => {
                 Оборудование
               </div>
               <div className="text-[16px] leading-[24px] text-[#717386]">
-                При покупке 1 единицы оборудования Root’s вы получаете
-                дополнительный бонус 500 рублей
+                При покупке оборудования Root’s начисляется 500 рублей
               </div>
             </div>
           </div>
@@ -154,7 +153,7 @@ export const TariffsPage = () => {
       <Banner
         dark
         title="Оборудование"
-        descl="Разработано для совместной работы с платформой. Перейдите на страницу каталога, чтобы выбрать контроллеры, датчики и модули автоматизации."
+        descl="Оборудование специально разработано для работы с платформой Root’s. Перейдите в каталог, чтобы выбрать контроллеры, датчики и модули автоматизации."
         btnText="Посмотреть оборудование"
         btnLink="/equipment"
         img={BannerImg2}
@@ -164,9 +163,9 @@ export const TariffsPage = () => {
         <div className="container">
           <h3>Расчет стоимости</h3>
           <div className="subtitle">
-            выберите оборудование и его количество и{' '}
-            <br className="hidden lg:block" />
-            мы рассчитаем примерную стоимость заказа
+            Укажите оборудование и его количество, и{' '}
+            <br className="hidden lg:block" /> система рассчитает стоимость
+            сервиса и оборудования
           </div>
 
           <div className="mx-[-16px] flex flex-col gap-[16px] lg:mx-0 lg:flex-row lg:gap-[32px]">
@@ -362,11 +361,11 @@ export const TariffsPage = () => {
                 <div className="flex flex-col gap-[32px]">
                   <div>
                     <div className="mb-[8px] text-[16px] font-medium leading-[24px] text-[#212333]">
-                      Датчики
+                      Оборудование
                     </div>
                     <div className="flex items-start justify-between gap-[16px] border-b border-[#E4EAFA] py-[16px]">
                       <span className="text-[16px] leading-[24px] text-[#717386]">
-                        Всего выбрано датчиков
+                        Всего единиц оборудования
                       </span>
                       <span className="text-[16px] leading-[24px] text-[#717386]">
                         46
@@ -374,7 +373,7 @@ export const TariffsPage = () => {
                     </div>
                     <div className="flex items-start justify-between gap-[16px] border-b border-[#E4EAFA] py-[16px]">
                       <span className="text-[16px] leading-[24px] text-[#717386]">
-                        Стоимость за 1 датчик
+                        Стоимость за одну единицу
                       </span>
                       <span className="text-[16px] leading-[24px] text-[#717386]">
                         150 ₽
@@ -382,7 +381,7 @@ export const TariffsPage = () => {
                     </div>
                     <div className="flex items-start justify-between gap-[16px] border-b border-[#E4EAFA] py-[16px]">
                       <span className="text-[16px] leading-[24px] text-[#717386]">
-                        Стоимость за все датчики
+                        Стоимость за все оборудование
                       </span>
                       <span className="text-[16px] leading-[24px] text-[#717386]">
                         6 900 ₽
@@ -395,7 +394,7 @@ export const TariffsPage = () => {
                     </div>
                     <div className="flex items-start justify-between gap-[16px] border-b border-[#E4EAFA] py-[16px]">
                       <span className="text-[16px] leading-[24px] text-[#717386]">
-                        Стоимость необходимого ПО / месяц
+                        Стоимость программного обеспечения / месяц
                       </span>
                       <span className="text-[16px] leading-[24px] text-[#717386]">
                         10 200 ₽
@@ -412,7 +411,7 @@ export const TariffsPage = () => {
                   </div>
                 </div>
               </div>
-              <button className="button-small flex w-full justify-center lg:inline-flex lg:w-auto mt-[40px]">
+              <button className="button-small mt-[40px] flex w-full justify-center lg:inline-flex lg:w-auto">
                 Оформить заказ на 17 100 ₽
               </button>
             </div>
@@ -422,7 +421,7 @@ export const TariffsPage = () => {
 
       <Banner
         title="Цифровой инструмент для роста"
-        descl="Помогает управлять хозяйством, экономить ресурсы, налаживать процессы, ускоряет развитие и контролировать урожай без лишних усилий"
+        descl="Оптимизируйте работу хозяйства, снижайте затраты и контролируйте урожай с помощью цифровых технологий."
         btnText="Открыть демо"
         btnLink="/"
         img={BannerImg}
