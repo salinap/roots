@@ -21,7 +21,7 @@ export default function Footer() {
         <div className="flex w-[292px] max-w-[292px] flex-col">
           <img src={FooterLogo} alt="" className="max-w-[111px]" />
           <div className="mt-auto hidden text-[16px] leading-[24px] text-white opacity-[0.32] lg:block">
-            © Root’s {new Date().getFullYear()}
+            © Root’s{' ' + new Date().getFullYear()}
           </div>
         </div>
         <div className="w-[292px] max-w-[292px] lg:pr-[16px]">
