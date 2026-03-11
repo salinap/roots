@@ -105,7 +105,7 @@ export const TariffsPage = () => {
           </div>
         </div>
       </div>
-      <div className="py-[48px] lg:py-[96px]">
+      {/* <div className="py-[48px] lg:py-[96px]">
         <div className="container">
           <div className="flex w-full flex-wrap gap-[16px]">
             <div className="w-full rounded-[24px] bg-white p-[24px] lg:w-[calc(33.333366666%-11px)] lg:rounded-brand-32 lg:p-[40px]">
@@ -157,7 +157,7 @@ export const TariffsPage = () => {
         btnText="Посмотреть оборудование"
         btnLink="/equipment"
         img={BannerImg2}
-      />
+      /> */}
 
       <div className="py-[48px] lg:py-[96px]">
         <div className="container">

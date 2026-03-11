@@ -10,6 +10,7 @@ import EmptyImgIcon from '../../assets/icons/empty-image-icon.svg';
 import MinusIcon from '../../assets/icons/minus-icon.svg';
 import PlusIcon from '../../assets/icons/plus-icon.svg';
 import RadioCheckActiveIcon from '../../assets/icons/radio-check-active.svg';
+import SearchIcon from '../../assets/icons/search.svg';
 import TrashIcon from '../../assets/icons/trash-icon.svg';
 import BannerImg from '../../assets/images/banner-img-1.png';
 import EquipImg1 from '../../assets/images/equip1.png';
@@ -23,17 +24,6 @@ import ContactUsModal, {
   formatPhoneValue,
 } from '../../components/modals/contact-us';
 import { useIsDesktop } from '../../hooks';
-
-const FILTER = [
-  {
-    title: 'Датчики Root’s',
-    type: 1,
-  },
-  {
-    title: 'Другие производители',
-    type: 2,
-  },
-];
 
 const EQUIPMENTS = [
   {
@@ -491,6 +481,43 @@ export const EquipmentPage = () => {
           </div>
           {step < 3 && (
             <>
+              <div className="block lg:flex lg:flex-row lg:flex-nowrap lg:items-center lg:gap-[24px]">
+                <div className="flex-1">
+                  <div className="relative overflow-hidden rounded-brand-100">
+                    <input
+                      type="text"
+                      name="search"
+                      value={value}
+                      onChange={(e) => setValue(e.target.value)}
+                      placeholder="Поиск по названию"
+                      // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
+                      className="mb-[16px] w-full bg-white py-[16px] pl-[24px] pr-[58px] text-[20px] leading-[32px] text-[#4b4b51] placeholder-[#717386] lg:mb-0"
+                    />
+                    <img
+                      src={SearchIcon}
+                      alt="search"
+                      className="absolute right-[16px] top-1/2 -translate-y-1/2"
+                    />
+                  </div>
+                </div>
+                <div className="mx-[-24px] overflow-auto whitespace-nowrap text-center lg:mx-0">
+                  <div className="inline-flex flex-nowrap justify-center rounded-brand-100 bg-white pl-[24px] lg:flex-wrap lg:pl-0">
+                    <div
+                      className="pointer-events-none text-nowrap rounded-full bg-[#212333] px-[24px] py-[12px] text-[16px] leading-[24px] text-white lg:text-[20px] lg:leading-[32px]"
+                      onClick={() => setType(1)}
+                    >
+                      Датчики Root’s
+                    </div>
+                    <div className="flex items-center gap-[10px] text-nowrap rounded-full bg-white px-[24px] py-[12px] text-[16px] leading-[24px] text-[#717386] lg:text-[20px] lg:leading-[32px]">
+                      Другие производители
+                      <span className="rounded-brand-100 bg-[#27BD6514] px-[8px] py-[2px] text-[16px] leading-[24px] text-[#26B862]">
+                        Скоро
+                      </span>
+                    </div>
+                  </div>
+                  <div className="inline-flex px-[12px] sm:hidden" />
+                </div>
+              </div>
               <div className="my-[40px] flex flex-wrap gap-[16px] lg:mb-[72px] lg:mt-[48px]">
                 {EQUIPMENTS.map((item, index) => (
                   <EquipItem

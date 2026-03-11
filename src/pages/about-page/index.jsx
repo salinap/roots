@@ -5,7 +5,6 @@ import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
 
 import React, { useRef } from 'react';
-import { NavLink } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useModalStore } from 'shared/store';
@@ -237,7 +236,7 @@ export const AboutPage = () => {
           <div className="container">
             <h3>Готовы к сотрудничеству</h3>
             <div className="flex flex-col gap-[16px] lg:flex-row">
-              <button
+              <div
                 onClick={handleFeedbackClick}
                 className="flex-1 cursor-pointer rounded-[24px] bg-[#27BD6514] p-[20px] text-start lg:rounded-brand-32 lg:p-[40px]"
               >
@@ -249,10 +248,10 @@ export const AboutPage = () => {
                   поможем подобрать решение
                 </div>
                 <img src={NextIcon} alt="" />
-              </button>
-              <NavLink
-                to="/"
-                className="flex-1 rounded-[24px] bg-[#3C7BF01A] p-[20px] lg:rounded-brand-32 lg:p-[40px]"
+              </div>
+              <div
+                onClick={handleFeedbackClick}
+                className="flex-1 cursor-pointer rounded-[24px] bg-[#3C7BF01A] p-[20px] lg:rounded-brand-32 lg:p-[40px]"
               >
                 <div className="mb-[20px] inline-flex rounded-brand-100 bg-[#3C7BF0] px-[16px] py-[6px] text-[16px] leading-[24px] text-white lg:mb-[24px]">
                   Инвесторам
@@ -262,7 +261,7 @@ export const AboutPage = () => {
                   для инвесторов и партнёров
                 </div>
                 <img src={NextIcon} alt="" />
-              </NavLink>
+              </div>
             </div>
           </div>
         </div>
